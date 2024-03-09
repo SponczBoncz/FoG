@@ -1,0 +1,34 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <h3>Informacje o grze</h3>
+    <style>
+    .img-responsive {
+        width: 20%;
+        height: auto;  /* Maintain the aspect ratio */
+        max-width: none;  /* Disable max-width constraint */
+    }
+    </style>
+    <div>
+        <img itemprop="image" no-animate="" class="img-responsive" data-no-retina="true"
+         src="{{ game.image_url }}" alt="{{ game.title }} Cover Artwork">
+    </div>
+    <h4>Tytuł: {{ game.title }}</h4>
+    <h4>Autor: {{ game.author }}</h4>
+    <h4>Opis: {{ game.description }}</h4>
+    <h4>Liczba graczy: {{ game.min_players }} - {{ game.max_players }}</h4>
+    <h4>Czas: {{ game.game_time }}</h4>
+    <h4>Gatunek: </h4>
+    <ul>
+        {% for category in game.category.all %}
+            <li>{{ category.name }}</li>
+        {% endfor %}
+    </ul>
+    <h4>Mechaniki: </h4>
+    <ul>
+        {% for mechanic in game.game_mechanics.all %}
+            <li><a href="{% url 'mechanic-details' mechanic_pk=mechanic.pk %}">{{ mechanic.name }}</a></li>
+        {% endfor %}
+    </ul>
+    <h4>BGG: <a href="{{ game.bgg_link }}" target="_blank">link</a></h4>
+{% endblock %}

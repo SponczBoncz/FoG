@@ -1,0 +1,10 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <h3>Mechaniki:</h3>
+    <ul>
+        {% for mechanic in mechanics %}
+            <li><a href="{% url 'mechanic-details' mechanic_pk=mechanic.pk %}">{{ mechanic.name }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

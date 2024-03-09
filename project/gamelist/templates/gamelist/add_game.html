@@ -1,0 +1,10 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <h3>Dodaj nową grę:</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="send">
+    </form>
+{% endblock %}
