@@ -1,0 +1,12 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+<form action="" method="post">
+    {%  csrf_token %}
+        <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+            <input type="submit" value="save"> ( zapisz zmiany )
+        </div>
+        <h3>Edycja rozgrywki:</h3>
+        {{ form.as_p }}
+</form>
+{% endblock %}

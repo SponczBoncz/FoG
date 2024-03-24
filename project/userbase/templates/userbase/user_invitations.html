@@ -1,0 +1,64 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+        <a href="{% url 'add-invitation' %}">
+            <button id="createButton" type="button">Create</button></a>
+        ( stwórz nową rozgrywkę )
+    </div>
+    {% if user_invitations %}
+    <h3>Rozgrywki które organizujesz:</h3>
+    <ul>
+        {% for invitation in user_invitations %}
+            <li>
+                <div style="display: flex; align-items: center;">
+                    <a href="{% url 'invitation-details' invitation_pk=invitation.pk %} " style="margin-right: 20px;">
+                    {{ invitation.game }}</a>
+                    Dostępne miejsca: {{ invitation.available_places }}
+                    Czas: {{ invitation.game_time }}
+                    Miejsce: {{ invitation.game_place }}
+                    Ilośc graczy: {{ invitation.no_players }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if invitations_accepted %}
+    <h3>Rozgrywki w których bierzesz udział:</h3>
+    <ul>
+        {% for invitation in invitations_accepted %}
+            <li>
+                <div style="display: flex; align-items: center;">
+                    <a href="{% url 'invitation-details' invitation_pk=invitation.pk %} " style="margin-right: 20px;">
+                    {{ invitation.game }}</a>
+                    Dostępne miejsca: {{ invitation.available_places }}
+                    Czas: {{ invitation.game_time }}
+                    Miejsce: {{ invitation.game_place }}
+                    Ilośc graczy: {{ invitation.no_players }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% if available_user_invitations %}
+    <h3>Dostępne rozgrywki:</h3>
+    <ul>
+        {% for invitation in available_user_invitations %}
+            <li>
+                <div style="display: flex; align-items: center;">
+                    <a href="{% url 'invitation-details' invitation_pk=invitation.pk %} " style="margin-right: 20px;">
+                    {{ invitation.game }}</a>
+                    Dostępne miejsca: {{ invitation.available_places }}
+                    <form action="{% url 'accept-invitation' invitation_pk=invitation.pk %}" method="post">
+                        {% csrf_token %}
+                        <input type="submit" value="Join" style="margin-right: 20px; margin-left: 20px;">
+                    </form>
+                    Czas: {{ invitation.game_time }}
+                    Miejsce: {{ invitation.game_place }}
+                    Ilośc graczy: {{ invitation.no_players }}
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}

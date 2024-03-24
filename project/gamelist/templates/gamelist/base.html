@@ -2,25 +2,74 @@
 <html lang="en" xmlns="http://www.w3.org/1999/html">
     <head><meta charset="utf-8"></head>
     <body>
-        <div style="position: fixed; width: 100%; background-color: lightgray; text-align: right;">
-            {% if user.is_autenticated %}
-                {{ user.login }}
-                <a href="{% url 'logout' %}" style="margin-right: 20px;">Wyloguj</a>
-            {% else %}
-                <a href="{% url 'register' %}" style="margin-right: 20px;">Zarejestruj się</a>
-                <a href="{% url 'login' %}" style="margin-right: 20px;">Zaloguj</a>
-            {% endif %}
+        <div style="position: fixed; width: 100%; background-color: lightgray; z-index: 1000;">
+            <div style="float: left;">
+                {%  csrf_token %}
+                <form action="{% url 'search' %}" method="get">
+                    <input type="text" name="title" placeholder="Search games">
+                    <button type="submit">Search</button>
+                </form>
+            </div>
+            <div style="float: right;">
+                {% if user.is_authenticated %}
+                    <a href="{% url 'lucky-shot' %}" style="margin-left: 20px;margin-right: 20px;">
+                        <button id="shotButton" type="button">Lucky Shot</button></a>
+                    <a href="{% url 'user-invitations' %}" style="margin-left: 20px;margin-right: 20px;">
+                        <button id="invitationsButton" type="button">Invitations</button></a>
+                    <a href="{% url 'user-collection' %}" style="margin-left: 20px;margin-right: 20px;">
+                        <button id="collectionButton" type="button">Collection</button></a>
+                    {{ user.nick }}
+                    <a href="{% url 'logout' %}" style="margin-left: 20px;margin-right: 20px;">
+                        <button id="logoutButton" type="button">Logout</button></a>
+                {% else %}
+                    <a href="{% url 'register' %}" style="margin-right: 20px;">
+                        <button id="registerButton" type="button">Register</button></a>
+                    <a href="{% url 'login' %}" style="margin-right: 20px;">
+                        <button id="loginButton" type="button">Login</button></a>
+                {% endif %}
+            </div>
+            <div style="clear: both;"></div>
         </div>
-        </br>
+        <br>
+        <div style="position: fixed; width: 100%; background-color: lightblue;">
         <h1>Fields of Games</h1>
         <h2>Twoja baza gier planszowych</h2>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
         {% block content %}{% endblock %}
+        <br>
+        <br>
+        <br>
+        <br>
         <footer style="position: fixed; bottom: 0; width: 100%; background-color: lightgray;">
             <a href="{% url 'all-games' %}">Lista gier</a>
-            </br>
+            {% if user.is_authenticated %}
+            <a href="{% url 'add-game' %}" style="margin-left: 306px;">Dodaj grę</a>
+            {% endif %}
+            <br>
             <a href="{% url 'mechanic-list' %}">Lista mechanik</a>
-            </br>
-            </br>
+            {% if user.is_authenticated %}
+            <a href="{% url 'requested-mechanic' %}" style="margin-left: 20px;">Zgłoś brakującą mechanikę</a>
+                {% if user.admin or user.is_superuser %}
+                <a href="{% url 'add-mechanic' %}" style="margin-left: 12px;">Dodaj mechanikę</a>
+                {% endif %}
+            {% endif %}
+            <br>
+            <a href="{% url 'category-list' %}">Lista kategorii</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'requested-category' %}" style="margin-left: 25px;">Zgłoś brakującą kategorię</a>
+                {% if user.admin or user.is_superuser %}
+                <a href="{% url 'add-category' %}" style="margin-left: 25px;">Dodaj kategorię</a>
+                {% endif %}
+            {% endif %}
+            <br>
+            <br>
         </footer>
     </body>
 </html>

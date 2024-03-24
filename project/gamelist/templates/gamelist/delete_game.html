@@ -1,20 +1,18 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
-    {% if user.is_authenticated %}
+{% if user.is_superuser %}
     <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
         <a href="{% url 'edit-game' game_pk=game.pk %}">
-            <button id="editButton" type="button">Edit</button></a>
-        ( edytuj informacje o grze )
-        {% if user.is_superuser %}
-            <br>
+            <button id="editButton" type="button">Edytuj</button></a> ( edytuj informacje o grze )
+        <br>
+        <form action="" method="post">
+        {%  csrf_token %}
             <div style="background-color: red">
-                <a href="{% url 'delete-game' game_pk=game.pk %}">
-                    <button id="deleteButton" type="button">Delete</button></a> ( usuń grę z bazy )
+                <input type="submit" value="Yes"> ( czy na pewno chcesz usunąć grę z bazy? operacja nieodwracalna ! )
             </div>
-        {% endif %}
+        </form>
     </div>
-    {% endif %}
     <h3>Informacje o grze</h3>
     <style>
     .img-responsive {
@@ -45,4 +43,5 @@
         {% endfor %}
     </ul>
     <h4>BGG: <a href="{{ game.bgg_link }}" target="_blank">link</a></h4>
+{% endif %}
 {% endblock %}

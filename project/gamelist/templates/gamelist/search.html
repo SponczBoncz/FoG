@@ -1,9 +1,10 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
-    <h3>Gry w bazie:</h3>
-    <ul>
-        {% for game in games %}
+    <h1>Wyniki wyszukiwania dla "{{ search_query }}":</h1>
+    {% if games %}
+        <ul>
+            {% for game in games %}
             <li>
                 <div style="display: flex; align-items: center;">
                     <a href="{% url 'game-details' game_pk=game.pk %} " style="margin-right: 20px;">{{ game.title }}</a>
@@ -15,6 +16,9 @@
                     {% endif %}
                 </div>
             </li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Nie znaleziono gier w bazie</p>
+    {% endif %}
 {% endblock %}

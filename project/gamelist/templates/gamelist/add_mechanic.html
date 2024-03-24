@@ -1,0 +1,35 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+{% if user.admin or user.is_superuser %}
+    <form method="post">
+        {% csrf_token %}
+        <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
+            <button id="saveButton">Save</button>
+            ( pending-zostanie na liście oczekujących;
+            accepted-zostanie zapisane;
+            not accepted-zostanie dodane na listę odrzuconych )
+            <br>
+            <a href="{% url 'add-new-mechanic' %}">
+                <button id="createButton" type="button">Create New</button></a> ( stwórz nową mechanikę od podstaw)
+        </div>
+        <div style="position: fixed; top: 180px; width: 100%; background-color: white;">
+            <h3>Dodaj nową mechanikę:</h3>
+        </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        {{ mechanic_forms.management_form }}
+        {% for form in mechanic_forms %}
+            <div class="form-row">
+                {{ form.id }}
+                {{ form.name }}
+                {{ form.description }}
+                {{ form.status }}
+            </div>
+        {% endfor %}
+    </form>
+{% endif %}
+{% endblock %}

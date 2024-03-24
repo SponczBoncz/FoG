@@ -1,18 +1,16 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
-    <h3>Gry w bazie:</h3>
+    <h3>Gry w kolekcji:</h3>
     <ul>
-        {% for game in games %}
+        {% for game in user_games %}
             <li>
                 <div style="display: flex; align-items: center;">
                     <a href="{% url 'game-details' game_pk=game.pk %} " style="margin-right: 20px;">{{ game.title }}</a>
-                    {% if user.is_authenticated %}
-                    <form action="{% url 'add-to-collection' game_pk=game.pk %}" method="post">
+                    <form action="{% url 'delete-from-collection' game_pk=game.pk %}" method="post">
                         {% csrf_token %}
-                        <input type="submit" value="Add to collection">
+                        <input type="submit" value="Delete from collection">
                     </form>
-                    {% endif %}
                 </div>
             </li>
         {% endfor %}

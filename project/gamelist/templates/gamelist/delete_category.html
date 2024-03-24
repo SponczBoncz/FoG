@@ -1,0 +1,21 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+    <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
+        <a href="{% url 'edit-category' category_pk=category.pk %}">
+            <button id="editButton" type="button">Edytuj</button></a>
+        ( edytuj informacje o kategorii )
+        <br>
+        <form action="" method="post">
+        {%  csrf_token %}
+            <div style="background-color: red">
+                <input type="submit" value="Yes"> ( czy na pewno chcesz usunąć kategorię z bazy? operacja nieodwracalna ! )
+            </div>
+        </form>
+    </div>
+    <h3>Informacje o kategorii</h3>
+    <h4>Kategoria: {{ category.name }}</h4>
+    <h4>Opis: {{ category.description }}</h4>
+{% endif %}
+{% endblock %}

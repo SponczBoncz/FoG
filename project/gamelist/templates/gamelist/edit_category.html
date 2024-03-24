@@ -1,13 +1,13 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
-{% if user.is_authenticated %}
+{% if user.admin or user.is_superuser %}
     <form action="" method="post">
         {%  csrf_token %}
-            <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+            <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
                 <input type="submit" value="save"> ( zapisz zmiany )
             </div>
-            <h3>Edycja gry:</h3>
+            <h3>Edycja kategorii:</h3>
             {{ form.as_p }}
     </form>
 {% endif %}

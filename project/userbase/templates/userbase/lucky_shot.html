@@ -1,0 +1,23 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <form action="" method="post">
+        {% csrf_token %}
+            <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+                    <button id="saveButton">Lucky Shot</button>
+                ( wylosuj grę z kolekcji na określoną liczbę graczy )
+            </div>
+            <br>
+            {% if random_game != None %}
+                Wylosowana gra to:
+                <div style="display: flex; align-items: center;">
+                    <a href="{% url 'game-details' game_pk=random_game.pk %} " style="margin-right: 20px;">
+                    {{ random_game.title }}</a>
+                </div>
+            {% else %}
+                Nie posiadasz w kolekcji gry na taką liczbę graczy :(
+            {% endif %}
+            <h3>Wylosuj grę na dziś :)</h3>
+            {{ form.as_p }}
+    </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <h3>Kategorie:</h3>
+    <ul>
+        {% for category in categories %}
+            <li>
+                <a href="{% url 'category-details' category_pk=category.pk %}">{{ category.name }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

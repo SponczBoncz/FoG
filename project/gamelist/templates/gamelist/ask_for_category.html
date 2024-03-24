@@ -3,12 +3,13 @@
 {% block content %}
 {% if user.is_authenticated %}
     <form action="" method="post">
-        {%  csrf_token %}
+        {% csrf_token %}
             <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
-                <input type="submit" value="save"> ( zapisz zmiany )
+                <button id="saveButton">Save</button> ( zapisz do listy brakujących kategorii )
             </div>
-            <h3>Edycja gry:</h3>
+            <h3>Zgłoś brakującą kategorię:</h3>
             {{ form.as_p }}
     </form>
 {% endif %}
 {% endblock %}
+

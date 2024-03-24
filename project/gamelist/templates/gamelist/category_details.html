@@ -1,0 +1,17 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    {% if user.admin or user.is_superuser %}
+        <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
+            <a href="{% url 'edit-category' category_pk=category.pk %}">
+                <button id="editButton" type="button">Edit</button></a>
+            ( edytuj informacje o kategorii )
+            <br>
+            <a href="{% url 'delete-category' category_pk=category.pk %}">
+                <button id="deleteButton" type="button">Delete</button></a> ( usuń kategorię z bazy )
+        </div>
+    {% endif %}
+    <h3>Informacje o kategorii</h3>
+    <h4>Kategoria: {{ category.name }}</h4>
+    <h4>Opis: {{ category.description }}</h4>
+{% endblock %}

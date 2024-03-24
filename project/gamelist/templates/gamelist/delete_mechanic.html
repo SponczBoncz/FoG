@@ -1,0 +1,21 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+    <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
+        <a href="{% url 'edit-mechanic' mechanic_pk=mechanic.pk %}">
+            <button id="editButton" type="button">Edytuj</button></a>
+        ( edytuj informacje o mechanice )
+        <br>
+        <form action="" method="post">
+        {%  csrf_token %}
+            <div style="background-color: red">
+                <input type="submit" value="Yes"> ( czy na pewno chcesz usunąć mechanikę z bazy? operacja nieodwracalna ! )
+            </div>
+        </form>
+    </div>
+    <h3>Informacje o mechanice</h3>
+    <h4>Mechanika: {{ mechanic.name }}</h4>
+    <h4>Opis: {{ mechanic.description }}</h4>
+{% endif %}
+{% endblock %}

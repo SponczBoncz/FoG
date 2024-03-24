@@ -1,10 +1,15 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
-    <h3>Dodaj nową grę:</h3>
+{% if user.is_authenticated %}
     <form action="" method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="send">
+            <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+                    <button id="saveButton">Save</button>
+                ( zapisz grę )
+            </div>
+            <h3>Dodaj nową grę:</h3>
+            {{ form.as_p }}
     </form>
+{% endif %}
 {% endblock %}

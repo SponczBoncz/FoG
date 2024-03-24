@@ -1,0 +1,23 @@
+{% extends 'gamelist/base.html' %}
+
+{% block content %}
+    <div style="position: fixed; top: 158px; width: 100%; background-color: lightblue;z-index: 1000;">
+        <a href="{% url 'edit-invitation' invitation_pk=invitation.pk %}">
+            <button id="editButton" type="button">Edit</button></a>
+        ( edytuj informacje o rozgrywce )
+        <br>
+        <form action="" method="post">
+        {%  csrf_token %}
+            <div style="background-color: lightblue">
+                <input type="submit" value="Yes"> ( czy na pewno chcesz usunąć rozgrywkę? operacja nieodwracalna ! )
+            </div>
+        </form>
+    </div>
+    <h3>Informacje o rozgrywce</h3>
+    <h4>Organizator: {{ invitation.user.nick }}</h4>
+    <h4>Gra: {{ invitation.game }}</h4>
+    <h4>Ilość graczy: {{ invitation.no_players }}</h4>
+    <h4>Rozpoczęcie gry: {{ invitation.game_time }}</h4>
+    <h4>Miejsce: {{ invitation.game_place }}</h4>
+    <h4>Dodatkowe informacje: {{ invitation.extra_text }}</h4>
+{% endblock %}

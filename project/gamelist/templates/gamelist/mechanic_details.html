@@ -1,6 +1,16 @@
 {% extends 'gamelist/base.html' %}
 
 {% block content %}
+    {% if user.admin or user.is_superuser %}
+        <div style="position: fixed; top: 158px; width: 100%; background-color: red;z-index: 1000;">
+            <a href="{% url 'edit-mechanic' mechanic_pk=mechanic.pk %}">
+                <button id="editButton" type="button">Edit</button></a>
+            ( edytuj informacje o mechanice )
+            <br>
+            <a href="{% url 'delete-mechanic' mechanic_pk=mechanic.pk %}">
+                <button id="deleteButton" type="button">Delete</button></a> ( usuń mechanikę z bazy )
+        </div>
+    {% endif %}
     <h3>Informacje o mechanice</h3>
     <h4>Mechanika: {{ mechanic.name }}</h4>
     <h4>Opis: {{ mechanic.description }}</h4>
